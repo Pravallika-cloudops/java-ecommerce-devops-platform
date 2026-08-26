@@ -19,6 +19,13 @@ pipeline {
                 sh './mvnw test'
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t product-service:${BUILD_NUMBER} .'
+                sh 'docker tag product-service:${BUILD_NUMBER} product-service:latest'
+            }
+        }
     }
 
     post {
